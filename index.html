@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professor AI - Web Based</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1 class="logo">Professor AI</h1>
+                <button class="new-chat-btn" id="newChatBtn">
+                    <span class="icon">+</span> New Chat
+                </button>
+            </div>
+
+            <div class="chat-history" id="chatHistory">
+                <p class="empty-state">No conversations yet</p>
+            </div>
+
+            <div class="sidebar-footer">
+                <button class="settings-btn" id="settingsBtn">⚙️ Settings</button>
+            </div>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main class="chat-container">
+            <!-- Header -->
+            <header class="chat-header">
+                <div class="header-content">
+                    <h2>Professor - Your AI Co-pilot</h2>
+                    <p class="status">Ready to code 🚀</p>
+                </div>
+            </header>
+
+            <!-- Messages Area -->
+            <div class="messages-area" id="messagesArea">
+                <div class="welcome-section">
+                    <div class="welcome-icon">🤖</div>
+                    <h3>Hey there! I'm Professor</h3>
+                    <p>Your confident, no-nonsense AI co-pilot. Let's build something amazing.</p>
+                    <div class="quick-prompts">
+                        <button class="quick-prompt" data-prompt="Explain async/await in JavaScript simply">Explain async/await</button>
+                        <button class="quick-prompt" data-prompt="Write a React component for a counter">React counter component</button>
+                        <button class="quick-prompt" data-prompt="What's the best way to structure a REST API?">API structure tips</button>
+                        <button class="quick-prompt" data-prompt="Debug this code issue for me">Debug my code</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="input-area">
+                <div class="input-wrapper">
+                    <textarea 
+                        id="userInput" 
+                        class="message-input" 
+                        placeholder="Ask me anything... (Shift+Enter for new line)"
+                        rows="1"
+                    ></textarea>
+                    <button class="send-btn" id="sendBtn">
+                        <span class="send-icon">→</span>
+                    </button>
+                </div>
+                <p class="input-hint">Professor AI • Powered by Groq</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div class="loading-indicator" id="loadingIndicator">
+        <div class="loading-dot"></div>
+        <div class="loading-dot"></div>
+        <div class="loading-dot"></div>
+        <p>Professor is thinking...</p>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
