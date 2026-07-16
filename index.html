@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professor AI - Web Based</title>
+    <title>Professor AI - Your AI Co-pilot</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,7 +11,10 @@
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="sidebar-header">
-                <h1 class="logo">Professor AI</h1>
+                <div class="logo-with-avatar">
+                    <div class="ai-avatar">🤖</div>
+                    <h1 class="logo">Professor AI</h1>
+                </div>
                 <button class="new-chat-btn" id="newChatBtn">
                     <span class="icon">+</span> New Chat
                 </button>
@@ -31,22 +34,62 @@
             <!-- Header -->
             <header class="chat-header">
                 <div class="header-content">
-                    <h2>Professor - Your AI Co-pilot</h2>
-                    <p class="status">Ready to code 🚀</p>
+                    <h2>Professor AI</h2>
+                    <p class="status">Your AI Co-pilot • Smart. Fast. Reliable.</p>
+                </div>
+                <div class="header-avatar">
+                    <div class="robot-avatar">🤖</div>
                 </div>
             </header>
 
             <!-- Messages Area -->
             <div class="messages-area" id="messagesArea">
                 <div class="welcome-section">
-                    <div class="welcome-icon">🤖</div>
-                    <h3>Hey there! I'm Professor</h3>
-                    <p>Your confident, no-nonsense AI co-pilot. Let's build something amazing.</p>
+                    <div class="welcome-logo">
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <!-- AI Robot Head -->
+                            <rect x="20" y="15" width="60" height="65" rx="8" fill="none" stroke="#00d9ff" stroke-width="2"/>
+                            <!-- Left Eye -->
+                            <circle cx="35" cy="35" r="6" fill="#00d9ff"/>
+                            <!-- Right Eye -->
+                            <circle cx="65" cy="35" r="6" fill="#00d9ff"/>
+                            <!-- Antenna Left -->
+                            <line x1="30" y1="10" x2="30" y2="0" stroke="#00d9ff" stroke-width="2"/>
+                            <circle cx="30" cy="0" r="3" fill="#00d9ff"/>
+                            <!-- Antenna Right -->
+                            <line x1="70" y1="10" x2="70" y2="0" stroke="#00d9ff" stroke-width="2"/>
+                            <circle cx="70" cy="0" r="3" fill="#00d9ff"/>
+                            <!-- Mouth -->
+                            <path d="M 40 50 L 60 50" stroke="#00d9ff" stroke-width="2" fill="none"/>
+                            <!-- Buttons -->
+                            <circle cx="40" cy="65" r="3" fill="#00d9ff"/>
+                            <circle cx="50" cy="65" r="3" fill="#00d9ff"/>
+                            <circle cx="60" cy="65" r="3" fill="#00d9ff"/>
+                        </svg>
+                    </div>
+                    <h3>Your AI Co-pilot</h3>
+                    <p>Smart. Fast. Reliable.</p>
                     <div class="quick-prompts">
-                        <button class="quick-prompt" data-prompt="Explain async/await in JavaScript simply">Explain async/await</button>
-                        <button class="quick-prompt" data-prompt="Write a React component for a counter">React counter component</button>
-                        <button class="quick-prompt" data-prompt="What's the best way to structure a REST API?">API structure tips</button>
-                        <button class="quick-prompt" data-prompt="Debug this code issue for me">Debug my code</button>
+                        <div class="quick-prompt-item" data-prompt="Write code">
+                            <div class="prompt-icon">&lt;/&gt;</div>
+                            <span>Write code</span>
+                            <div class="prompt-arrow">→</div>
+                        </div>
+                        <div class="quick-prompt-item" data-prompt="Debug issues">
+                            <div class="prompt-icon">🐛</div>
+                            <span>Debug issues</span>
+                            <div class="prompt-arrow">→</div>
+                        </div>
+                        <div class="quick-prompt-item" data-prompt="Learn anything">
+                            <div class="prompt-icon">🎓</div>
+                            <span>Learn anything</span>
+                            <div class="prompt-arrow">→</div>
+                        </div>
+                        <div class="quick-prompt-item" data-prompt="Generate ideas">
+                            <div class="prompt-icon">💡</div>
+                            <span>Generate ideas</span>
+                            <div class="prompt-arrow">→</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -61,24 +104,29 @@
                         rows="1"
                     ></textarea>
                     <button class="send-btn" id="sendBtn">
-                        <span class="send-icon">→</span>
+                        <span class="send-icon">🎤</span>
                     </button>
                 </div>
-                <p class="input-hint">Professor AI • Powered by Groq</p>
             </div>
         </main>
     </div>
+
+    <!-- Bottom Navigation (Mobile) -->
+    <nav class="bottom-nav">
+        <button class="nav-item active">🏠 Home</button>
+        <button class="nav-item">💬 Chats</button>
+        <button class="nav-item">🛠️ Tools</button>
+        <button class="nav-item">👤 Profile</button>
+    </nav>
 
     <!-- Loading Indicator -->
     <div class="loading-indicator" id="loadingIndicator">
         <div class="loading-dot"></div>
         <div class="loading-dot"></div>
         <div class="loading-dot"></div>
-        <p>Professor is thinking...</p>
     </div>
 
     <!-- Scripts -->
-    <script src="config.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
