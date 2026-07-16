@@ -33,12 +33,20 @@ class ProfessorAI {
             }
         });
 
+        // Auto-resize message input text area
+        this.userInput.addEventListener('input', () => {
+            this.userInput.style.height = 'auto';
+            this.userInput.style.height = (this.userInput.scrollHeight) + 'px';
+        });
+
         // Quick prompts
-        const quickPrompts = document.querySelectorAll('.quick-prompt');
+        const quickPrompts = document.querySelectorAll('.quick-prompt-item');
         quickPrompts.forEach(btn => {
             btn.addEventListener('click', (e) => {
-                this.userInput.value = e.target.dataset.prompt;
+                const target = e.currentTarget;
+                this.userInput.value = target.dataset.prompt;
                 this.userInput.focus();
+                this.userInput.dispatchEvent(new Event('input'));
             });
         });
 
@@ -56,13 +64,63 @@ class ProfessorAI {
         this.currentChatId = this.generateChatId();
         this.messagesArea.innerHTML = `
             <div class="welcome-section">
-                <div class="welcome-icon">🤖</div>
-                <h3>New Conversation</h3>
-                <p>Fresh start! What's on your mind?</p>
+                <div class="welcome-logo">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="20" y="15" width="60" height="65" rx="8" fill="none" stroke="#00ff66" stroke-width="2"/>
+                        <circle cx="35" cy="35" r="6" fill="#00ff66"/>
+                        <circle cx="65" cy="35" r="6" fill="#00ff66"/>
+                        <line x1="30" y1="10" x2="30" y2="0" stroke="#00ff66" stroke-width="2"/>
+                        <circle cx="30" cy="0" r="3" fill="#00ff66"/>
+                        <line x1="70" y1="10" x2="70" y2="0" stroke="#00ff66" stroke-width="2"/>
+                        <circle cx="70" cy="0" r="3" fill="#00ff66"/>
+                        <path d="M 40 50 L 60 50" stroke="#00ff66" stroke-width="2" fill="none"/>
+                        <circle cx="40" cy="65" r="3" fill="#00ff66"/>
+                        <circle cx="50" cy="65" r="3" fill="#00ff66"/>
+                        <circle cx="60" cy="65" r="3" fill="#00ff66"/>
+                    </svg>
+                </div>
+                <h3>Professor AI</h3>
+                <p>Fresh start! Niambie, una changamoto gani ya code leo?</p>
+                <div class="quick-prompts">
+                    <div class="quick-prompt-item" data-prompt="Write code">
+                        <div class="prompt-icon">&lt;/&gt;</div>
+                        <span>Write code</span>
+                        <div class="prompt-arrow">→</div>
+                    </div>
+                    <div class="quick-prompt-item" data-prompt="Debug issues">
+                        <div class="prompt-icon">🐛</div>
+                        <span>Debug issues</span>
+                        <div class="prompt-arrow">→</div>
+                    </div>
+                    <div class="quick-prompt-item" data-prompt="Learn anything">
+                        <div class="prompt-icon">🎓</div>
+                        <span>Learn anything</span>
+                        <div class="prompt-arrow">→</div>
+                    </div>
+                    <div class="quick-prompt-item" data-prompt="Generate ideas">
+                        <div class="prompt-icon">💡</div>
+                        <span>Generate ideas</span>
+                        <div class="prompt-arrow">→</div>
+                    </div>
+                </div>
             </div>
         `;
         this.userInput.value = '';
+        this.userInput.style.height = 'auto';
         this.updateChatHistory();
+        this.attachQuickPromptsListeners();
+    }
+
+    attachQuickPromptsListeners() {
+        const quickPrompts = this.messagesArea.querySelectorAll('.quick-prompt-item');
+        quickPrompts.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const target = e.currentTarget;
+                this.userInput.value = target.dataset.prompt;
+                this.userInput.focus();
+                this.userInput.dispatchEvent(new Event('input'));
+            });
+        });
     }
 
     /* ============ MESSAGE HANDLING ============ */
@@ -105,18 +163,39 @@ class ProfessorAI {
         const welcome = this.messagesArea.querySelector('.welcome-section');
         if (welcome) welcome.remove();
 
-        const messageDiv = document.createElement('div');
-        messageDiv.className = `message ${sender}`;
+        // ChatGPT-style structure
+        const messageRow = document.createElement('div');
+        messageRow.className = `message-row ${sender}`;
 
-        const contentDiv = document.createElement('div');
-        contentDiv.className = 'message-content';
+        const wrapper = document.createElement('div');
+        wrapper.className = 'message-content-wrapper';
+
+        const avatarContainer = document.createElement('div');
+        avatarContainer.className = 'message-avatar-container';
+
+        const img = document.createElement('img');
+        img.className = 'msg-avatar';
+        if (sender === 'ai') {
+            img.src = 'robot.png';
+            img.alt = 'Professor AI';
+        } else {
+            img.src = 'cyborg-avatar.png';
+            img.alt = 'User';
+        }
+        avatarContainer.appendChild(img);
+
+        const body = document.createElement('div');
+        body.className = 'message-body';
         
         // Format content (simple markdown support)
         let formattedContent = this.formatContent(content);
-        contentDiv.innerHTML = formattedContent;
+        body.innerHTML = formattedContent;
 
-        messageDiv.appendChild(contentDiv);
-        this.messagesArea.appendChild(messageDiv);
+        wrapper.appendChild(avatarContainer);
+        wrapper.appendChild(body);
+        messageRow.appendChild(wrapper);
+
+        this.messagesArea.appendChild(messageRow);
 
         // Scroll to bottom
         this.messagesArea.scrollTop = this.messagesArea.scrollHeight;
